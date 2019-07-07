@@ -13,7 +13,36 @@ enum class TimeUnits {
     SECOND,
     MINUTE,
     HOUR,
-    DAY
+    DAY;
+
+    fun plural(value: Int): String {
+        when (value) {
+            1 -> {
+                return when (this) {
+                    SECOND -> "1 секунду"
+                    MINUTE -> "1 минуту"
+                    HOUR -> "1 час"
+                    DAY -> "1 день"
+                }
+            }
+            in 2..4 -> {
+                return when (this) {
+                    SECOND -> "$value секунды"
+                    MINUTE -> "$value минуты"
+                    HOUR -> "$value часа"
+                    DAY -> "$value дня"
+                }
+            }
+            else -> {
+                return when (this) {
+                    SECOND -> "$value секунд"
+                    MINUTE -> "$value минут"
+                    HOUR -> "$value часов"
+                    DAY -> "$value дней"
+                }
+            }
+        }
+    }
 }
 
 fun Date.format(pattern: String = "HH:mm:yy"): String {
@@ -69,31 +98,3 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     }
 }
 
-fun TimeUnits.plural(value: Int): String {
-    when (value) {
-        1 -> {
-            return when (this) {
-                TimeUnits.SECOND -> "1 секунду"
-                TimeUnits.MINUTE -> "1 минуту"
-                TimeUnits.HOUR -> "1 час"
-                TimeUnits.DAY -> "1 день"
-            }
-        }
-        in 2..4 -> {
-            return when (this) {
-                TimeUnits.SECOND -> "$value секунды"
-                TimeUnits.MINUTE -> "$value минуты"
-                TimeUnits.HOUR -> "$value часа"
-                TimeUnits.DAY -> "$value дня"
-            }
-        }
-        else -> {
-            return when (this) {
-                TimeUnits.SECOND -> "$value секунд"
-                TimeUnits.MINUTE -> "$value минут"
-                TimeUnits.HOUR -> "$value часов"
-                TimeUnits.DAY -> "$value дней"
-            }
-        }
-    }
-}
