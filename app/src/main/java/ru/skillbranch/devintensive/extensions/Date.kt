@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.extensions
 
+import java.lang.IllegalStateException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.abs
@@ -16,6 +17,7 @@ enum class TimeUnits {
     DAY;
 
     fun plural(value: Int): String {
+        if (value < 0) throw IllegalStateException("Value must be 0 or higher")
         when (value) {
             1 -> {
                 return when (this) {
@@ -34,11 +36,15 @@ enum class TimeUnits {
                 }
             }
             else -> {
-                return when (this) {
-                    SECOND -> "$value секунд"
-                    MINUTE -> "$value минут"
-                    HOUR -> "$value часов"
-                    DAY -> "$value дней"
+                return if (value > 20) {
+                    "$value" + plural(value % 10).drop(1)
+                } else {
+                    when (this) {
+                        SECOND -> "$value секунд"
+                        MINUTE -> "$value минут"
+                        HOUR -> "$value часов"
+                        DAY -> "$value дней"
+                    }
                 }
             }
         }
