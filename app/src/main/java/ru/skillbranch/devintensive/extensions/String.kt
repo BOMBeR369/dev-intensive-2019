@@ -10,8 +10,7 @@ fun String.truncate(threshold: Int = 16): String {
 
 fun String.stripHtml():String {
     val spaces = " {2,}".toRegex()
-    val tag = "<.+?> *".toRegex()
-    val escape = "&\\w+?; *".toRegex()
-    val symbols = "[&'\"<>] *".toRegex()
-    return this.replace(tag, "").replace(escape,"").replace(symbols, "").replace(spaces," ")
+    val tag = "<.+?>".toRegex()
+    val escape = "&[^а-яА-Я ]+?;".toRegex()
+    return this.replace(tag, "").replace(escape,"").replace(spaces," ")
 }
