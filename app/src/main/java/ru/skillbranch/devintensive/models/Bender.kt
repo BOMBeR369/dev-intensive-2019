@@ -33,7 +33,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
             } else {
                 status = status.nextStatus()
-                "Это не правильный ответ\n${question.question}" to status.color
+                "Это неправильный ответ\n${question.question}" to status.color
             }
         }
     }
@@ -70,7 +70,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             override fun nextQuestion(): Question = SERIAL
             override fun validateAnswer(answer: String): Boolean = answer.all { it.isDigit() }
         },
-        SERIAL("Мой сериийный номер?", listOf("2716057")) {
+        SERIAL("Мой серийный номер?", listOf("2716057")) {
             override fun nextQuestion(): Question = IDLE
             override fun validateAnswer(answer: String): Boolean = answer.length == 7 && answer.all { it.isDigit() }
         },
